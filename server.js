@@ -1,10 +1,12 @@
 var express = require('express');
+var request = require('request');
+
 var app = express();
 
-var request = require('request'); // 'Request' library
+app.set('port', (process.env.PORT || 5000));
 
-var client_id = '34cc976bb02444f598495f72da4e5615'; // Your client id
-var client_secret = '6203a8869f664f57b294c1a02d904a01'; // Your secret
+var client_id = '34cc976bb02444f598495f72da4e5615'; // TODO move to config file
+var client_secret = '6203a8869f664f57b294c1a02d904a01'; // TODO move to config file
 
 // your application requests authorization
 var authOptions = {
@@ -96,8 +98,6 @@ app.get('/trackAnalysis', function (req, res) {
 	});
 })
 
-var server = app.listen(8081, function () {
-	var host = server.address().address;
-	var port = server.address().port;
-	console.log('Example app listening at http://localhost:8081')
+app.listen(app.get('port'), function() {
+  console.log('Node app is running on port', app.get('port'));
 });
