@@ -1,0 +1,24 @@
+{
+  "author": "dsbankov",
+  "name": "track-info",
+  "description": "...",
+  "version": "0.0.2",
+  "dependencies": {
+    "express": "~4.16.0",
+    "request": "~2.83.0"
+  },
+  "scripts": {
+    "start": "node server.js"
+  },
+  "main": "server.js",
+  "devDependencies": {},
+  "keywords": [
+    "youtube",
+    "heroku",
+    "spotify"
+  ],
+  "license": "ISC",
+  "engines": {
+    "node": "8.9.4"
+  }
+}
