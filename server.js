@@ -107,7 +107,7 @@ function parse(queryString) {
 	} else {
 		parsedQueryString = parsedQueryString.replace(/(\(|\[).*(\)|\])/gi, ""); // remove everything between brackets (...) or [...]
 	}
-	parsedQueryString = parsedQueryString.replace(/4k/gi, ""); // remove 4K 
+	parsedQueryString = parsedQueryString.replace(/(4k|hd|ft|ft.|feat|feat.)/gi, ""); // remove 4K
 	return parsedQueryString.trim();
 }
 
