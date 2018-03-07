@@ -55,6 +55,9 @@ app.get('/trackAnalysis', function (req, res) {
 							track_info.loudness = body.loudness;
 							console.log(track_info);
 							res.send(track_info);
+						} else {
+							res.status(500).end('Error while getting track info. Details: ' + error);
+							return;
 						}
 					});
 				} else {
@@ -62,6 +65,9 @@ app.get('/trackAnalysis', function (req, res) {
 					return;
 				}
 			});
+		} else {
+			res.status(500).end('Error while getting access token. Details: ' + error);
+			return;
 		}
 	});
 });
