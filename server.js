@@ -30,36 +30,37 @@ app.get('/trackAnalysis', function (req, res) {
 	}
 	request.post(getAuthOptions(client_id, client_secret), function (error, response, body) {
 		if (!error && response.statusCode === 200) {
-			// use the access token to access the Spotify Web API
 			var token = body.access_token;
 			var parsed_query_string = parseQueryString(queryString);
 			console.log('Access token: ' + token);
 			console.log('Prased query string: ' + parsed_query_string);
-			
 			request.get(getSearchOptions(parsed_query_string, token), function (error, response, body) {
+				if (!error && response.statusCode === 200) {
+					var items = body.tracks.items;
+					console.log(items.length + ' results found.');
+					
+					if (items.length <= 0) {
+						res.status(404).end('No tracks with name "' + parsed_query_string + '" found.');
+						return;
+					}
+					var track = items[0];
+					var artists_names = getArtistsNames(track);
+					
+					var track_info = {};
+					track_info.artists = artists_names;
+					track_info.track = track.name;
+					track_info.id = track.id;
 
-				var items = body.tracks.items;
-				console.log(items.length + ' results found.');
-				
-				if (items.length <= 0) {
-					res.status(404).end('No tracks with name "' + parsed_query_string + '" found.');
-					return;
+					request.get(getTrackFeaturesOptions(track.id, token), function (error, response, body) {
+						if (!error && response.statusCode === 200) {
+							track_info.key = body.key;
+							track_info.tempo = body.tempo;
+							track_info.loudness = body.loudness;
+							console.log(track_info);
+							res.send(track_info);
+						}
+					});
 				}
-				var track = items[0];
-				var artists_names = getArtistsNames(track);
-				
-				var track_info = {};
-				track_info.artists = artists_names;
-				track_info.track = track.name;
-				track_info.id = track.id;
-
-				request.get(getTrackFeaturesOptions(track.id, token), function (error, response, body) {
-					track_info.key = body.key;
-					track_info.tempo = body.tempo;
-					track_info.loudness = body.loudness;
-					console.log(track_info);
-					res.send(track_info);
-				});
 			});
 		}
 	});
