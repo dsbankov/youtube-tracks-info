@@ -33,11 +33,11 @@ app.get('/trackAnalysis', function (req, res) {
 			var token = body.access_token;
 			var parsed_query_string = parseQueryString(queryString);
 			console.log('Access token: ' + token);
-			console.log('Prased query string: ' + parsed_query_string);
+			console.log('Parsed query string: ' + parsed_query_string);
 			request.get(getSearchOptions(parsed_query_string, token), function (error, response, body) {
-				if (!error && response.statusCode === 200) {
+				if (!error && response.statusCode === 200 && body && body.tracks && body.tracks.total > 0) {
 					var items = body.tracks.items;
-					console.log(items.length + ' results found.');
+					console.log(body.tracks.total + ' results found.');
 					
 					if (items.length <= 0) {
 						res.status(404).end('No tracks with name "' + parsed_query_string + '" found.');
