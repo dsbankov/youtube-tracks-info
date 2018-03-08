@@ -51,8 +51,8 @@ app.get('/trackAnalysis', function (req, res) {
 					request.get(getTrackFeaturesOptions(track.id, token), function (error, response, body) {
 						if (!error && response.statusCode === 200) {
 							track_info.key = getNote(body.key, body.mode);
-							track_info.tempo = body.tempo;
-							track_info.loudness = body.loudness;
+							track_info.tempo = Math.round(body.tempo);
+							track_info.loudness = body.loudness.toFixed(1);
 							console.log('All info: ' + JSON.stringify(body));
 							console.log('Response: ' + JSON.stringify(track_info));
 							res.send(track_info);
