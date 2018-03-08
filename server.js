@@ -50,10 +50,11 @@ app.get('/trackAnalysis', function (req, res) {
 					track_info.id = track.id;
 					request.get(getTrackFeaturesOptions(track.id, token), function (error, response, body) {
 						if (!error && response.statusCode === 200) {
-							track_info.key = body.key;
+							track_info.key = getNote(body.key);
 							track_info.tempo = body.tempo;
 							track_info.loudness = body.loudness;
-							console.log(track_info);
+							console.log('All info: ' + JSON.stringify(body));
+							console.log('Response: ' + JSON.stringify(track_info));
 							res.send(track_info);
 						} else {
 							res.status(500).end('Error while getting track info. Details: ' + error);
@@ -107,6 +108,23 @@ function getTrackFeaturesOptions(track_id, token) {
 		},
 		json: true
 	};
+}
+
+function getNote(key) {
+	var number_to_note = new Map();
+	number_to_note.set(0, "C");
+	number_to_note.set(1, "C#");
+	number_to_note.set(2, "D");
+	number_to_note.set(3, "D#");
+	number_to_note.set(4, "E");
+	number_to_note.set(5, "F");
+	number_to_note.set(6, "F#");
+	number_to_note.set(7, "G");
+	number_to_note.set(8, "G#");
+	number_to_note.set(9, "A");
+	number_to_note.set(10, "A#");
+	number_to_note.set(11, "B");
+	return number_to_note.get(key);
 }
 
 function getArtistsNames(track) {
