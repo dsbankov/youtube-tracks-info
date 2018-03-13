@@ -143,7 +143,7 @@ function parseQueryString(queryString) {
 	} else {
 		parsed_query_string = parsed_query_string.replace(/(\(|\[).*(\)|\])/gi, ""); // remove everything between brackets (...) or [...]
 	}
-	parsed_query_string = parsed_query_string.replace(/(4k|hd|ft\.|ft|feat\.|feat)/gi, ""); // remove specific words/characters
+	parsed_query_string = parsed_query_string.replace(/(4k|hd|ft\.|ft|feat\.|feat|\|)/gi, ""); // remove specific words/characters
 	parsed_query_string = parsed_query_string.replace(/\s+/gi, " "); // trim consecutive whitespaces
 	return parsed_query_string.trim();
 }
