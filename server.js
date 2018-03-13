@@ -35,6 +35,9 @@ app.get('/trackAnalysis', function (req, res) {
 			console.log('Access token: ' + token);
 			console.log('Parsed query string: ' + parsed_query_string);
 			request.get(getSearchOptions(parsed_query_string, token), function (error, response, body) {
+				// console.log(!error);
+				// console.log(response.statusCode);
+				// console.log(body);
 				if (!error && response.statusCode === 200 && body && body.tracks && body.tracks.total > 0) {
 					var items = body.tracks.items;
 					console.log(body.tracks.total + ' results found.');
@@ -62,7 +65,7 @@ app.get('/trackAnalysis', function (req, res) {
 						}
 					});
 				} else {
-					res.status(404).end('No tracks with name "' + parsed_query_string + '" found.');
+					res.status(404).end('Error while searching. No tracks with name "' + parsed_query_string + '" found.');
 					return;
 				}
 			});

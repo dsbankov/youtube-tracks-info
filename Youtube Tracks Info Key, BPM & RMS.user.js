@@ -53,12 +53,13 @@ function load_track_info() {
 }
 
 function remove_non_word_characters(video_title) {
-    var ws_marker = "999ABCD000";
-    var result = video_title;
-    result = result.replace(/\s+/gi, ws_marker); // replace all consecutive whitespace characters with the unique marker
-    result = result.replace(/\W+/gi, ""); // remove all non-word characters (&*()_=\..., this includes the whitespaces -> that's why we replace them with the marker beforehand)
-    result = result.replace(new RegExp(ws_marker, "gi"), " "); // bring back the whitespaces
-    return result;
+    return video_title.replace(/(&|\?|=|\$|\+|\.|:|;|\/|,|@|>|<|#|%)/gi, ""); // remove special characters
+    // var ws_marker = "999ABCD000";
+    // var result = video_title;
+    // result = result.replace(/\s+/gi, ws_marker); // replace all consecutive whitespace characters with the unique marker
+    // result = result.replace(/\W+/gi, ""); // remove all non-word characters (&*()_=\..., this includes the whitespaces -> that's why we replace them with the marker beforehand)
+    // result = result.replace(new RegExp(ws_marker, "gi"), " "); // bring back the whitespaces
+    // return result;
     // return video_title.replace(/\s+/gi, ws_marker).replace(/\W+/gi, "").replace(new RegExp(ws_marker, "gi"), " ");
 }
 
