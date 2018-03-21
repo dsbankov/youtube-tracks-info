@@ -40,7 +40,7 @@ app.get('/trackAnalysis', function (req, res) {
 				// console.log(body);
 				if (!error && response.statusCode === 200 && body && body.tracks && body.tracks.total > 0) {
 					var items = body.tracks.items;
-					console.log(body.tracks.total + ' results found.');
+					console.log(body.tracks.total + ' results found!');
 					if (items.length <= 0) {
 						res.status(404).end('No tracks with name "' + parsed_query_string + '" found.');
 						return;
