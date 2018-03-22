@@ -23,8 +23,6 @@ app.use(function (request, response, next) {
 });
 
 app.get('/trackAnalysis', function (req, res) {
-	console.log('client_id: ' + client_id);
-	console.log('client_secret: ' + client_secret);
 	var queryString = req.query.q;
 	if (!queryString) {
 		res.status(400).end('No track name given. Use /trackAnalysys?q=<track_name>.');
