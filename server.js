@@ -1,8 +1,8 @@
 var express = require('express');
 var request = require('request');
 
-var client_id = '34cc976bb02444f598495f72da4e5615'; // TODO move to config file
-var client_secret = '6203a8869f664f57b294c1a02d904a01'; // TODO move to config file
+var client_id = process.env.CLIENT_ID;
+var client_secret = process.env.CLIENT_SECRET;
 
 var app = express();
 app.set('port', (process.env.PORT || 5000));
@@ -23,6 +23,8 @@ app.use(function (request, response, next) {
 });
 
 app.get('/trackAnalysis', function (req, res) {
+	console.log('client_id: ' + client_id);
+	console.log('client_secret: ' + client_secret);
 	var queryString = req.query.q;
 	if (!queryString) {
 		res.status(400).end('No track name given. Use /trackAnalysys?q=<track_name>.');
