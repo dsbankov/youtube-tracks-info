@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Youtube Tracks Info: Key, BPM & RMS
 // @namespace    http://dsbankov.net/
-// @version      1.03
+// @version      1.04
 // @description  Displays the key, BPM & RMS of a track on youtube.
 // @author       dsbankov
 // @match        https://www.youtube.com/*
@@ -35,8 +35,8 @@ function load_track_info() {
                         var loudness = response.loudness;
                         var tempo = response.tempo;
                         $('.track_info').remove();
-                        $('#count > yt-view-count-renderer').append('<h5 class="track_info" style="color: green; text-decoration: none; font-weight: normal; text-align: right; font-style: italic;">Key of ' +
-                                                                        key + ', ' + tempo + ' BPM, ' + loudness + ' RMS' + '</h4>');
+                        $('#info-contents > ytd-video-primary-info-renderer').append('<h2 class="track_info" style="color: green; text-decoration: none; font-weight: normal; text-align: left; font-style: italic;">Key of ' +
+                                                                        key + ', ' + tempo + ' BPM, ' + loudness + ' RMS' + '</h2>');
                     }).fail(function(response) {
                         log("Track not found: " + JSON.stringify(response));
                     });
